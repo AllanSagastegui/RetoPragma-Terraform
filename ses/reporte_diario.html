@@ -1,0 +1,64 @@
+<html>
+  <body style="margin:0;padding:0;font-family:Arial,sans-serif;background:#f4f4f7;">
+    <div style="max-width:650px;margin:30px auto;background:#ffffff;border-radius:12px;
+                box-shadow:0 6px 18px rgba(0,0,0,0.1);overflow:hidden;">
+      
+      <div style="background:#0052cc;color:#ffffff;padding:20px;text-align:center;
+                  font-size:22px;font-weight:bold;letter-spacing:0.5px;">
+        📊 Reporte Diario de Solicitudes
+      </div>
+      
+      <div style="padding:25px;color:#333333;line-height:1.6;">
+        <p style="margin:0 0 20px 0;font-size:16px;">
+          Estimado Administrador,<br>
+          A continuación se presenta el resumen de solicitudes procesadas en la fecha 
+          <b>{{reportDate}}</b>.
+        </p>
+
+        <div style="margin:20px 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:15px;text-align:center;">
+            <thead>
+              <tr style="background:#f0f0f0;color:#333333;">
+                <th style="padding:12px;border:1px solid #ddd;">Estado</th>
+                <th style="padding:12px;border:1px solid #ddd;">Cantidad</th>
+                <th style="padding:12px;border:1px solid #ddd;">Dinero Prestado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#f9fff9;">
+                <td style="padding:12px;border:1px solid #ddd;font-weight:bold;color:green;">
+                  Aprobados
+                </td>
+                <td style="padding:12px;border:1px solid #ddd;">{{approvedCount}}</td>
+                <td style="padding:12px;border:1px solid #ddd;">${{moneySum}}</td>
+              </tr>
+              <tr style="background:#fff9f9;">
+                <td style="padding:12px;border:1px solid #ddd;font-weight:bold;color:red;">
+                  Rechazados
+                </td>
+                <td style="padding:12px;border:1px solid #ddd;">{{rejectedCount}}</td>
+                <td style="padding:12px;border:1px solid #ddd;">-</td>
+              </tr>
+              <tr style="background:#eaf3ff;font-weight:bold;">
+                <td style="padding:12px;border:1px solid #ddd;">Total</td>
+                <td style="padding:12px;border:1px solid #ddd;">{{totalCount}}</td>
+                <td style="padding:12px;border:1px solid #ddd;">${{moneySum}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <p style="margin:25px 0 0 0;font-size:14px;color:#555;">
+          Este reporte tiene como objetivo brindar una visión general del estado de las solicitudes en el sistema.  
+          Para más detalles, puede acceder al panel administrativo.
+        </p>
+      </div>
+
+      <div style="background:#f7f7f7;padding:15px;text-align:center;
+                  font-size:12px;color:#777777;">
+        <p style="margin:0;">Reporte generado automáticamente por el sistema <b>CreditYa</b>.</p>
+        <p style="margin:5px 0 0 0;">&copy; CreditYa 2025. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </body>
+</html>

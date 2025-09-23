@@ -1,0 +1,66 @@
+<html>
+  <body style="margin:0;padding:0;font-family:Arial,sans-serif;background:#f4f4f7;">
+    <div style="max-width:600px;margin:30px auto;background:#ffffff;border-radius:12px;
+                box-shadow:0 6px 18px rgba(0,0,0,0.1);overflow:hidden;">
+      
+      <div style="background:#0052cc;color:#ffffff;padding:20px;text-align:center;
+                  font-size:22px;font-weight:bold;">
+        Notificación de Crédito
+      </div>
+      
+      <div style="padding:25px;color:#333333;line-height:1.6;">
+        <h2 style="margin:0 0 15px 0;font-size:20px;">Hola {{name}} {{lastName}},</h2>
+        <p style="margin:0 0 15px 0;">
+          Tu solicitud con ID <b>{{idLoanApplication}}</b> ha sido procesada.
+        </p>
+        
+        <div style="margin:20px 0;padding:18px;border-radius:8px;
+                    background:#f9f9f9;border-left:6px solid #333333;
+                    font-size:16px;font-weight:bold;text-align:center;">
+          Estado de tu solicitud: <span style="color:#333333;">{{status}}</span>
+        </div>
+        
+        <p style="margin:0 0 8px 0;"><b>Monto solicitado:</b> ${{amount}}</p>
+        <p style="margin:0 0 8px 0;"><b>Plazo:</b> {{term}} meses</p>
+        <p style="margin:0 0 8px 0;"><b>Tipo de préstamo:</b> {{loanType}}</p>
+        
+        {{#if showPlan}}
+          <h3 style="margin:25px 0 10px 0;font-size:18px;color:#0052cc;">Plan de Pagos</h3>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead>
+              <tr style="background:#0052cc;color:#ffffff;">
+                <th style="padding:8px;border:1px solid #ddd;">Mes</th>
+                <th style="padding:8px;border:1px solid #ddd;">Cuota</th>
+                <th style="padding:8px;border:1px solid #ddd;">Capital</th>
+                <th style="padding:8px;border:1px solid #ddd;">Interés</th>
+                <th style="padding:8px;border:1px solid #ddd;">Saldo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each paymentPlan}}
+                <tr>
+                  <td style="padding:8px;border:1px solid #ddd;text-align:center;">{{month}}</td>
+                  <td style="padding:8px;border:1px solid #ddd;text-align:right;">${{cuota}}</td>
+                  <td style="padding:8px;border:1px solid #ddd;text-align:right;">${{principal}}</td>
+                  <td style="padding:8px;border:1px solid #ddd;text-align:right;">${{interest}}</td>
+                  <td style="padding:8px;border:1px solid #ddd;text-align:right;">${{balance}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{/if}}
+        
+        <p style="margin:25px 0 0 0;">
+          Gracias por confiar en <b>CreditYa</b>. Nuestro compromiso es ofrecerte 
+          un servicio rápido, seguro y transparente.
+        </p>
+      </div>
+
+      <div style="background:#f7f7f7;padding:15px;text-align:center;
+                  font-size:12px;color:#777777;">
+        <p style="margin:0;">Este mensaje fue generado automáticamente, por favor no responda a este correo.</p>
+        <p style="margin:5px 0 0 0;">&copy; CreditYa 2025. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </body>
+</html>
