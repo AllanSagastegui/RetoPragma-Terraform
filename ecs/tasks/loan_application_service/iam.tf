@@ -11,11 +11,6 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_execution_attach" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
 resource "aws_iam_role" "loan_task_role" {
   name = "loan-task-role"
 
@@ -38,7 +33,9 @@ resource "aws_iam_policy" "loan_service_secrets_policy" {
     Statement = [{
       Effect   = "Allow"
       Action   = ["secretsmanager:GetSecretValue"]
-      Resource = aws_secretsmanager_secret.loan_service_envs.arn
+      Resource = [var.db_loan_secret_arn, 
+                  aws_secretsmanager_secret.loan_service_envs.arn
+                ]
     }]
   })
 }
@@ -69,4 +66,14 @@ resource "aws_iam_role_policy_attachment" "loan_service_secrets_attach" {
 resource "aws_iam_role_policy_attachment" "loan_logs_attach" {
   role       = aws_iam_role.loan_task_role.name
   policy_arn = aws_iam_policy.loan_logs_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_execution_attach" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_execution_secrets_attach" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.loan_service_secrets_policy.arn
 }

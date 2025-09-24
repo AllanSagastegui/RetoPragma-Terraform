@@ -11,11 +11,6 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_execution_attach" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
 resource "aws_iam_role" "auth_task_role" {
   name = "auth-task-role"
 
@@ -38,7 +33,9 @@ resource "aws_iam_policy" "auth_secrets_policy" {
     Statement = [{
       Effect   = "Allow"
       Action   = ["secretsmanager:GetSecretValue"]
-      Resource = var.db_auth_secret_arn
+      Resource = [ var.db_auth_secret_arn,
+                  aws_secretsmanager_secret.auth_service_envs.arn 
+                ]
     }]
   })
 }
@@ -69,4 +66,14 @@ resource "aws_iam_role_policy_attachment" "auth_task_secrets_attach" {
 resource "aws_iam_role_policy_attachment" "auth_task_logs_attach" {
   role       = aws_iam_role.auth_task_role.name
   policy_arn = aws_iam_policy.auth_logs_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_execution_attach" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_execution_secrets_attach" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.auth_secrets_policy.arn
 }

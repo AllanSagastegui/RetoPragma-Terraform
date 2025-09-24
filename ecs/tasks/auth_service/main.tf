@@ -26,7 +26,7 @@ resource "aws_ecs_task_definition" "auth_service" {
           protocol      = "tcp" 
         }
       ]
-      environment = [
+      secrets = [
         {
           name  = "AUTH_DB_HOST"
           valueFrom = "${aws_secretsmanager_secret.auth_service_envs.arn}:AUTH_DB_HOST::"
@@ -38,9 +38,7 @@ resource "aws_ecs_task_definition" "auth_service" {
         {
           name  = "AUTH_DB_PORT"
           valueFrom = "${aws_secretsmanager_secret.auth_service_envs.arn}:AUTH_DB_PORT::"
-        }
-      ]
-      secrets = [
+        },
         {
           name      = "AUTH_DB_USER"
           valueFrom = "${var.db_auth_secret_arn}:username::"
